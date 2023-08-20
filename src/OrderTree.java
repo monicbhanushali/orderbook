@@ -45,11 +45,13 @@ public class OrderTree {
      */
     public List<Order> getMinPriceList() {
         if(orderTree.isEmpty()) return Collections.unmodifiableList(new LinkedList<>());
-        return Collections.unmodifiableList(orderTree.firstEntry().getValue());
+        return List.copyOf(orderTree.firstEntry().getValue());
     }
 
     public List<Order> getMaxPriceList() {
+        // had an observation while iterating on unmodifiable list and concurrently deleting the elements
+        // the loop behaved differently and ended abruptly
         if(orderTree.isEmpty()) return Collections.unmodifiableList(new LinkedList<>());
-        return Collections.unmodifiableList(orderTree.lastEntry().getValue());
+        return List.copyOf(orderTree.lastEntry().getValue());
     }
 }
