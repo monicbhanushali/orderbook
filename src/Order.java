@@ -72,4 +72,8 @@ public class Order {
     public String getStockName() {
         return stockName;
     }
+
+    public String toString() {
+        return "Order ID" + this.orderId + " quantity " + this.quantity + " side " + this.side;
+    }
 }

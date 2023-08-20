@@ -16,6 +16,16 @@ public class Main {
                 "Reliance"
         );
 
+        Order order1 = new Order(
+                "2023-08-20",
+                80,
+                22.5,
+                "O123456-S1",
+                "T12345-S",
+                "sell",
+                "Reliance"
+        );
+
         Order order2 = new Order(
                 "2023-08-20",
                 99,
@@ -28,6 +38,7 @@ public class Main {
 
         OrderBook book = new OrderBook();
         book.processOrder(order);
+        book.processOrder(order1);
         book.processOrder(order2);
     }
 }

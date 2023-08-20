@@ -38,19 +38,34 @@ public class OrderBook {
                 if(minOrderList == null || minOrderList.isEmpty()) break;
 
                 for(Order o : minOrderList) {
+                    System.out.println(o);
+
+                    boolean isTraded = false;
+                    int tradedQuantity = 0;
                     // on exact match reduce quantity to zero and delete the order from list
                     if(quantity == o.getQuantity()) {
                         quantity = 0;
                         orderTree.deleteOrder(o.getOrderId());
+                        orderTree.deleteOrder(order.getOrderId());
+                        isTraded = true;
+                        tradedQuantity = quantity;
                     } else if (quantity < o.getQuantity()) {
                         o.updateQuantity(o.getQuantity() - quantity);
+                        isTraded = true;
+                        tradedQuantity = quantity;
+                        quantity = 0;
+                        orderTree.deleteOrder(order.getOrderId());
                     } else {
                         quantity -= o.getQuantity();
                         orderTree.deleteOrder(o.getOrderId());
+                        isTraded = true;
+                        tradedQuantity = o.getQuantity();
                     }
 
-                    System.out.println("Order ID: " + order.getOrderId() + " quantity: " + order.getQuantity()
-                            + " matched with Order: " + o.getOrderId() + " quantity " + o.getQuantity());
+                    System.out.println("**************** Trade Executed ****************");
+                    System.out.println("OrderID: " + order.getOrderId() + " bought " + tradedQuantity);
+                    System.out.println("OrderID: " + o.getOrderId() + " sold " + tradedQuantity);
+                    System.out.println("**************** ENDS ****************");
                 }
             }
         } else {
@@ -68,17 +83,13 @@ public class OrderBook {
                         quantity -= o.getQuantity();
                         orderTree.deleteOrder(o.getOrderId());
                     }
-
-                    System.out.println("Order ID: " + order.getOrderId() + " quantity: " + order.getQuantity()
-                            + " matched with Order: " + o.getOrderId() + " quantity " + o.getQuantity());
                 }
             }
-
-            if (quantity == 0) {
-                orderTree.deleteOrder(order.getOrderId());
-            } else {
-                order.updateQuantity(quantity);
-            }
+        }
+        if (quantity == 0) {
+            orderTree.deleteOrder(order.getOrderId());
+        } else {
+            order.updateQuantity(quantity);
         }
     }
 }
