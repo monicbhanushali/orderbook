@@ -10,10 +10,11 @@ public class Order {
     private double price;
     private String orderId;
     private String tradeId;
-    private String side;
+    private OrderAction side;
     private String stockName;
+    private OrderType type;
 
-    public Order(String timestamp, int quantity, double price, String orderId, String tradeId, String side, String stockName) {
+    public Order(String timestamp, int quantity, double price, String orderId, String tradeId, OrderAction side, String stockName, OrderType type) {
         this.timestamp = timestamp;
         this.quantity = quantity;
         this.price = price;
@@ -21,6 +22,7 @@ public class Order {
         this.tradeId = tradeId;
         this.side = side;
         this.stockName = stockName;
+        this.type = type;
     }
 
     public void updateQuantity(int newQuantity) {
@@ -65,7 +67,7 @@ public class Order {
         return tradeId;
     }
 
-    public String getSide() {
+    public OrderAction getSide() {
         return side;
     }
 
@@ -75,5 +77,13 @@ public class Order {
 
     public String toString() {
         return "Order ID" + this.orderId + " quantity " + this.quantity + " side " + this.side;
+    }
+
+    public OrderType getType() {
+        return type;
+    }
+
+    public void setType(OrderType type) {
+        this.type = type;
     }
 }

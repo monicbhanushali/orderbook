@@ -12,8 +12,9 @@ public class Main {
                 22.5,
                 "O123456-S",
                 "T12345-S",
-                "sell",
-                "Reliance"
+                OrderAction.ASK,
+                "Reliance",
+                OrderType.MARKET
         );
 
         Order order1 = new Order(
@@ -22,8 +23,10 @@ public class Main {
                 22.5,
                 "O123456-S1",
                 "T12345-S",
-                "sell",
-                "Reliance"
+                OrderAction.ASK,
+                "Reliance",
+                OrderType.MARKET
+
         );
 
         Order order2 = new Order(
@@ -32,8 +35,9 @@ public class Main {
                 23.5,
                 "O123456",
                 "T12345",
-                "buy",
-                "Reliance"
+                OrderAction.BID,
+                "Reliance",
+                OrderType.MARKET
         );
 
         OrderBook book = new OrderBook();

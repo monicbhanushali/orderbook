@@ -11,28 +11,36 @@ public class OrderBook {
     }
 
     public void processOrder(Order order) {
-        double price = order.getPrice();
-        processMarketOrder(order);
+        if(order.getType() == OrderType.LIMIT) {
+            processLimitOrder(order);
+        } else {
+            processMarketOrder(order);
+        }
     }
 
     private void processMarketOrder(Order order) {
         int quantity = order.getQuantity();
-        String side = order.getSide();
+        OrderAction side = order.getSide();
 
         if(quantity <= 0) throw new ArithmeticException("Quantity of Order cannot be less than 1");
 
-        if (side == "buy") {
+        if (side == OrderAction.BID) {
             buySide.addOrder(order);
-            matchAndExecuteOrder(order, sellSide, "buy");
+            matchAndExecuteOrder(order, sellSide, OrderAction.BID);
         } else {
             sellSide.addOrder(order);
-            matchAndExecuteOrder(order, buySide, "sell");
+            matchAndExecuteOrder(order, buySide, OrderAction.ASK);
         }
     }
 
-    private void matchAndExecuteOrder(Order order, OrderTree orderTree, String side) {
+    private void processLimitOrder(Order order) {
+
+    }
+
+    private void matchAndExecuteOrder(Order order, OrderTree orderTree, OrderAction side) {
         int quantity = order.getQuantity();
-        if(side == "buy") {
+        String orderId = order.getOrderId();
+        if(side == OrderAction.BID) {
             while(quantity > 0) {
                 List<Order> minOrderList = orderTree.getMinPriceList();
                 if(minOrderList == null || minOrderList.isEmpty()) break;
@@ -46,7 +54,7 @@ public class OrderBook {
                     if(quantity == o.getQuantity()) {
                         quantity = 0;
                         orderTree.deleteOrder(o.getOrderId());
-                        orderTree.deleteOrder(order.getOrderId());
+                        orderTree.deleteOrder(orderId);
                         isTraded = true;
                         tradedQuantity = quantity;
                     } else if (quantity < o.getQuantity()) {
@@ -54,7 +62,7 @@ public class OrderBook {
                         isTraded = true;
                         tradedQuantity = quantity;
                         quantity = 0;
-                        orderTree.deleteOrder(order.getOrderId());
+                        orderTree.deleteOrder(orderId);
                     } else {
                         quantity -= o.getQuantity();
                         orderTree.deleteOrder(o.getOrderId());
