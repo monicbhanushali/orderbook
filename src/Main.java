@@ -6,12 +6,28 @@ public class Main {
         // IntelliJ IDEA suggests fixing it.
         System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        Order order = new Order(
+                "2023-08-20",
+                35,
+                22.5,
+                "O123456-S",
+                "T12345-S",
+                "sell",
+                "Reliance"
+        );
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        Order order2 = new Order(
+                "2023-08-20",
+                99,
+                23.5,
+                "O123456",
+                "T12345",
+                "buy",
+                "Reliance"
+        );
+
+        OrderBook book = new OrderBook();
+        book.processOrder(order);
+        book.processOrder(order2);
     }
 }
