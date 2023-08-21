@@ -9,23 +9,23 @@ public class Main {
         Order order = new Order(
                 "2023-08-20",
                 35,
-                22.5,
+                122.5,
                 "O123456-S",
                 "T12345-S",
                 OrderAction.ASK,
                 "Reliance",
-                OrderType.MARKET
+                OrderType.LIMIT
         );
 
         Order order1 = new Order(
                 "2023-08-20",
                 80,
-                22.5,
+                202.5,
                 "O123456-S1",
                 "T12345-S",
                 OrderAction.ASK,
                 "Reliance",
-                OrderType.MARKET
+                OrderType.LIMIT
 
         );
 
@@ -37,7 +37,7 @@ public class Main {
                 "T12345",
                 OrderAction.BID,
                 "Reliance",
-                OrderType.MARKET
+                OrderType.LIMIT
         );
 
         OrderBook book = new OrderBook();

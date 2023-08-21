@@ -76,7 +76,7 @@ public class OrderBook {
                     }
 
                     if (isTraded) {
-                        System.out.println("**************** Buy Trade Executed ****************");
+                        System.out.println("**************** Market Buy Trade Executed ****************");
                         System.out.println("OrderID: " + order.getOrderId() + " bought " + tradedQuantity);
                         System.out.println("OrderID: " + o.getOrderId() + " sold " + tradedQuantity);
                         System.out.println("**************** ENDS ****************");
@@ -109,7 +109,7 @@ public class OrderBook {
                         tradedQuantity = o.getQuantity();
                     }
                     if (isTraded) {
-                        System.out.println("**************** Sell Trade Executed ****************");
+                        System.out.println("**************** Market Sell Trade Executed ****************");
                         System.out.println("OrderID: " + order.getOrderId() + " bought " + tradedQuantity);
                         System.out.println("OrderID: " + o.getOrderId() + " sold " + tradedQuantity);
                         System.out.println("**************** ENDS ****************");
@@ -155,7 +155,7 @@ public class OrderBook {
                     }
 
                     if (isTraded) {
-                        System.out.println("**************** Buy Trade Executed ****************");
+                        System.out.println("**************** Limit Buy Trade Executed ****************");
                         System.out.println("OrderID: " + order.getOrderId() + " bought " + tradedQuantity);
                         System.out.println("OrderID: " + o.getOrderId() + " sold " + tradedQuantity);
                         System.out.println("**************** ENDS ****************");
@@ -163,7 +163,7 @@ public class OrderBook {
                 }
             }
         } else {
-            while(quantity > 0) {
+            while(quantity > 0 && orderTree.isNotEmpty() && price <= orderTree.getHighestPrice()) {
                 List<Order> maxOrderList = orderTree.getMaxPriceList();
                 if(maxOrderList == null || maxOrderList.isEmpty()) break;
                 for(Order o : maxOrderList) {
@@ -188,7 +188,7 @@ public class OrderBook {
                         tradedQuantity = o.getQuantity();
                     }
                     if (isTraded) {
-                        System.out.println("**************** Sell Trade Executed ****************");
+                        System.out.println("**************** Limit Sell Trade Executed ****************");
                         System.out.println("OrderID: " + order.getOrderId() + " bought " + tradedQuantity);
                         System.out.println("OrderID: " + o.getOrderId() + " sold " + tradedQuantity);
                         System.out.println("**************** ENDS ****************");

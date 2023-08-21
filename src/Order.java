@@ -27,9 +27,9 @@ public class Order {
         // TODO: Refactor this to a proper place
         if(type == OrderType.MARKET) {
             if(side == OrderAction.BID) {
-                price = Double.MAX_VALUE;
+                this.price = Double.MAX_VALUE;
             } else {
-                price = Double.MIN_VALUE;
+                this.price = Double.MIN_VALUE;
             }
         }
 
