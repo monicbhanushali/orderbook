@@ -23,6 +23,16 @@ public class Order {
         this.side = side;
         this.stockName = stockName;
         this.type = type;
+
+        // TODO: Refactor this to a proper place
+        if(type == OrderType.MARKET) {
+            if(side == OrderAction.BID) {
+                price = Double.MAX_VALUE;
+            } else {
+                price = Double.MIN_VALUE;
+            }
+        }
+
     }
 
     public void updateQuantity(int newQuantity) {
