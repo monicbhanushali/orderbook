@@ -1,3 +1,6 @@
+import enums.OrderAction;
+import enums.OrderType;
+
 /**
  * Order is the basic unit in stock exchange.
  * Order can be either a buy/sell order

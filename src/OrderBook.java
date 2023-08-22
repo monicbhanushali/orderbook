@@ -1,3 +1,6 @@
+import enums.OrderAction;
+import enums.OrderType;
+
 import java.util.List;
 
 public class OrderBook {
@@ -56,23 +59,22 @@ public class OrderBook {
                     boolean isTraded = false;
                     int tradedQuantity = 0;
                     // on exact match reduce quantity to zero and delete the order from list
-                    if(quantity == o.getQuantity()) {
-                        quantity = 0;
-                        orderTree.deleteOrder(o.getOrderId());
-                        orderTree.deleteOrder(orderId);
-                        isTraded = true;
+
+                    if(quantity <= o.getQuantity()) {
                         tradedQuantity = quantity;
-                    } else if (quantity < o.getQuantity()) {
-                        o.updateQuantity(o.getQuantity() - quantity);
                         isTraded = true;
-                        tradedQuantity = quantity;
+                        this.buySide.deleteOrder(orderId);
                         quantity = 0;
-                        orderTree.deleteOrder(orderId);
+                        if(o.getQuantity() - tradedQuantity == 0) {
+                            orderTree.deleteOrder(o.getOrderId());
+                        } else {
+                            o.updateQuantity(o.getQuantity() - tradedQuantity);
+                        }
                     } else {
-                        quantity -= o.getQuantity();
-                        orderTree.deleteOrder(o.getOrderId());
                         isTraded = true;
                         tradedQuantity = o.getQuantity();
+                        quantity -= o.getQuantity();
+                        orderTree.deleteOrder(o.getOrderId());
                     }
 
                     if (isTraded) {
@@ -117,7 +119,7 @@ public class OrderBook {
                 }
             }
         }
-        if (quantity != order.getQuantity()) {
+        if (quantity > 0 && quantity != order.getQuantity()) {
             order.updateQuantity(quantity);
         }
     }
@@ -196,8 +198,28 @@ public class OrderBook {
                 }
             }
         }
-        if (quantity != order.getQuantity()) {
+        if (quantity > 0 && quantity != order.getQuantity()) {
             order.updateQuantity(quantity);
         }
+    }
+
+    /**
+     * Print Order Book
+     * @return string version of order book for printing
+     */
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append("######################################################");
+        builder.append("\n" + "Symbol: TEMP" + "\n");
+        builder.append(" -------------- BUY SIDE --------------");
+        builder.append(this.buySide.toString());
+        builder.append("\n");
+        builder.append(" -------------- SELL SIDE --------------");
+        builder.append(this.sellSide.toString());
+        builder.append("\n");
+        builder.append("######################################################");
+
+        return builder.toString();
     }
 }

@@ -1,3 +1,6 @@
+import enums.OrderAction;
+import enums.OrderType;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -37,12 +40,14 @@ public class Main {
                 "T12345",
                 OrderAction.BID,
                 "Reliance",
-                OrderType.LIMIT
+                OrderType.MARKET
         );
 
         OrderBook book = new OrderBook();
         book.processOrder(order);
         book.processOrder(order1);
+        System.out.println(book.toString());
         book.processOrder(order2);
+        System.out.println(book.toString());
     }
 }

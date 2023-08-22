@@ -66,4 +66,19 @@ public class OrderTree {
     public boolean isNotEmpty() {
         return !orderTree.isEmpty();
     }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n" + "Price, Quantity, Orders" + "\n");
+        for (Map.Entry<Double, LinkedList<Order>> entry : orderTree.entrySet()) {
+            int nOrdersAtPriceLevel = entry.getValue()
+                    .stream()
+                    .map(o -> o.getQuantity())
+                    .reduce(0, Integer::sum);
+            builder.append(entry.getKey() + ", " + nOrdersAtPriceLevel + ", " + entry.getValue().size());
+            builder.append("\n");
+        }
+
+        return builder.toString();
+    }
 }
