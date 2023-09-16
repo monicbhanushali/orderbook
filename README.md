@@ -18,3 +18,5 @@ Why LinkedList ?
  - Appending to linked list (adding an order) would take O(1)
  - deleting an order would take O(N)
    - Can we do it in O(1) ? store reference/index somewhere ?
+
+For each symbol - there would be one orderbook with two sides (buy & sell )
