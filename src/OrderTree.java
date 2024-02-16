@@ -81,4 +81,8 @@ public class OrderTree {
 
         return builder.toString();
     }
+
+    public void updateVolume(double tradedQuantity) {
+        volume -= tradedQuantity;
+    }
 }
