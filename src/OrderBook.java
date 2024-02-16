@@ -97,7 +97,7 @@ public class OrderBook {
                     if(quantity <= o.getQuantity()) {
                         tradedQuantity = quantity;
                         isTraded = true;
-                        this.buySide.deleteOrder(orderId);
+                        this.sellSide.deleteOrder(orderId);
                         quantity = 0;
                         if(o.getQuantity() - tradedQuantity == 0) {
                             orderTree.deleteOrder(o.getOrderId());
