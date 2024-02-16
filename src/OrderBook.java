@@ -68,11 +68,13 @@ public class OrderBook {
                         if(o.getQuantity() - tradedQuantity == 0) {
                             orderTree.deleteOrder(o.getOrderId());
                         } else {
+                            this.sellSide.updateVolume(tradedQuantity);
                             o.updateQuantity(o.getQuantity() - tradedQuantity);
                         }
                     } else {
                         isTraded = true;
                         tradedQuantity = o.getQuantity();
+                        this.buySide.updateVolume(tradedQuantity);
                         quantity -= o.getQuantity();
                         orderTree.deleteOrder(o.getOrderId());
                         order.updateQuantity(quantity);
@@ -97,16 +99,18 @@ public class OrderBook {
                     if(quantity <= o.getQuantity()) {
                         tradedQuantity = quantity;
                         isTraded = true;
-                        this.buySide.deleteOrder(orderId);
+                        this.sellSide.deleteOrder(orderId);
                         quantity = 0;
                         if(o.getQuantity() - tradedQuantity == 0) {
                             orderTree.deleteOrder(o.getOrderId());
                         } else {
+                            this.buySide.updateVolume(tradedQuantity);
                             o.updateQuantity(o.getQuantity() - tradedQuantity);
                         }
                     } else {
                         isTraded = true;
                         tradedQuantity = o.getQuantity();
+                        this.sellSide.updateVolume(tradedQuantity);
                         quantity -= o.getQuantity();
                         orderTree.deleteOrder(o.getOrderId());
                         order.updateQuantity(quantity);
